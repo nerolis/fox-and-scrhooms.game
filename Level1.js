@@ -12,8 +12,8 @@ EnemeyKyubei = function(index,game,x,y){
 
 
     this.KyubeiTween = game.add.tween(this.Kyubei).to({
-                    y: this.Kyubei.x + 800
-                  },2000,'Linear',true,0,200,true);
+                    y: this.Kyubei.y + 1000
+                  },2000,'Linear',true,600,600,true);
 
 }
 
@@ -46,10 +46,10 @@ var bullet;
 Game.Level1.prototype ={
     create:function () {
       //background
-      background = this.add.tileSprite(0, 0, 6000, 3000, "background");
+      background = this.add.tileSprite(0, 0, 3000, 3000, "background");
       // Music
       music = this.add.audio('boden');
-
+      music.volume = 0.3;
       music.play();
 
       // Map
@@ -90,19 +90,19 @@ Game.Level1.prototype ={
         right: this.input.keyboard.addKey(Phaser.Keyboard.D),
         left: this.input.keyboard.addKey(Phaser.Keyboard.A),
         up: this.input.keyboard.addKey(Phaser.Keyboard.W),
-        shoot: this.input.keyboard.addKey(Phaser.Keyboard.X),
+        shoot: this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR),
 
       };
       // madokaButton
       button = this.add.button(this.world.centerX - 95, this.world.centerY + 200,
                 'button', function() {
-                ('pressed')
+                  background.visible =! background.visible;
               }, this, 2, 1, 0);
+            //button.fixedToCamera = true;
 
-              //button.fixedToCamera = true;
-              // drag madoka
+            // drag madoka
              drag = this.add.sprite(player.x ,player.y,'drag');
-              drag.anchor.setTo(0.5,0.5);
+              drag.anchor.setTo(0.5,-3);
               drag.inputEnabled = true;
               drag.input.enableDrag(true);
               drag.enableBody = true;
@@ -110,7 +110,7 @@ Game.Level1.prototype ={
 
              //constructor kyubeiya
              enemy1 = new EnemeyKyubei(0, this, player.x+400, player.y-200);
-             enemy1 = new EnemeyKyubei(0, this, player.x+400, player.y-200);
+
 
              // Shoot
              bullets = this.add.group();
@@ -135,6 +135,7 @@ Game.Level1.prototype ={
          // Movement
         this.physics.arcade.collide(player, layer);
         this.physics.arcade.collide(player, enemy1.Kyubei,this.resetPlayer);
+
         player.body.velocity.x = 0;
 
 
@@ -164,13 +165,11 @@ Game.Level1.prototype ={
       }
 
 
+
       if(controls.shoot.isDown){
         this.shootBullet();
       }
 
-      if(checkOverlap(bullets,enemy1.Kyubei)) {
-          enemy1.Kyubei.kill();
-      }
 
 
     },
@@ -209,3 +208,4 @@ function checkOverlap(spriteA,spriteB) {
   return Phaser.Rectangle.intersects(BoundsA,BoundsB);
 
 }
+
