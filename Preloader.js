@@ -12,22 +12,22 @@ Game.Preloader.prototype = {
       this.load.setPreloadSprite(this.preloadBar);
 
       // img
-      this.load.tilemap('map', 'assets/level3.csv');
+      this.load.tilemap('map', 'Assets/level3.csv');
 
-      this.load.image('tileset', 'assets/mytile.png');
+      this.load.image('tileset', 'Assets/mytile.png');
 
-	    this.load.image('drag', 'assets/drag.gif');
+	    this.load.image('drag', 'Assets/drag.gif');
 
-      this.load.spritesheet('player','assets/player.png',96, 54);
+      this.load.spritesheet('player','Assets/player.png',96, 54);
 
-      this.load.spritesheet('button','assets/button.gif');
+      this.load.spritesheet('button','Assets/button.gif');
 
-      this.load.image('Kyubei','assets/Kyubei.png');
+      this.load.image('Kyubei','Assets/Kyubei.png');
 
-      this.load.image('bullet','assets/bullet.png');
+      this.load.image('bullet','Assets/bullet.png');
 
-      this.load.audio('boden', 'assets/BOC - Music is Math.mp3');
-      this.load.image("background", "assets/sky.jpg");
+      this.load.audio('boden', 'Assets/BOC - Music is Math.mp3');
+      this.load.image("background", "Assets/sky.jpg");
     },
 
 
