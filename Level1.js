@@ -47,36 +47,26 @@ Game.Level1.prototype ={
     create:function () {
       //background
       background = this.add.tileSprite(0, 0, 3000, 3000, "background");
+      this.stage.backgroundColor = '#634324';
       // Music
       music = this.add.audio('boden');
       music.volume = 0.3;
       music.play();
-
       // Map
-      this.stage.backgroundColor = '#634324';
       this.physics.arcade.gravity.y = 1400;
-
       map = this.add.tilemap('map', 64,64);
-
       map.addTilesetImage('tileset');
-
       layer = map.createLayer(0);
-
       layer.resizeWorld();
-
       map.setCollisionBetween(0,0);
-
       map.setTileIndexCallback(6,this.resetPlayer,this);
       map.setTileIndexCallback(64,this.getHigh,this);
-
       // score
       scoreText = this.add.text(0, 0, 'Shrooms: 0', { fontSize: '32px', fill: '#668221' });
       scoreText.fixedToCamera = true;
-
       // Player animation
       player = this.add.sprite(100, 560, 'player');
       player.anchor.setTo(0.5, 0.5);
-
       player.animations.add('idle', [0], true);
       player.animations.add('jump', [2, 0], true);
       player.animations.add('run',  [1, 2, 3, 1, 2, 3], true);
@@ -84,14 +74,12 @@ Game.Level1.prototype ={
       this.camera.follow(player);
       player.body.collideWorldBounds = true;
       player.animations.currentAnim.speed = 5;
-
       // Keyboard
       controls = {
         right: this.input.keyboard.addKey(Phaser.Keyboard.D),
         left: this.input.keyboard.addKey(Phaser.Keyboard.A),
         up: this.input.keyboard.addKey(Phaser.Keyboard.W),
         shoot: this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR),
-
       };
       // madokaButton
       button = this.add.button(this.world.centerX - 95, this.world.centerY + 200,
@@ -208,4 +196,3 @@ function checkOverlap(spriteA,spriteB) {
   return Phaser.Rectangle.intersects(BoundsA,BoundsB);
 
 }
-
