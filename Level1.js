@@ -12,36 +12,47 @@ EnemeyKyubei = function(index,game,x,y){
 
 
     this.KyubeiTween = game.add.tween(this.Kyubei).to({
-                    y: this.Kyubei.y + 1000
-                  },2000,'Linear',true,600,600,true);
+      y: this.Kyubei.y + 2000
+    }, 2000, 'Linear', true, 1200, 1600, true);
+  
 
+}
+
+EnemyKira = function(index, game, x, y) {
+  this.Kira = game.add.sprite(x, y, 'kira');
+  this.Kira.anchor.setTo(0.5, 0.5);
+  this.Kira.name = index.toString();
+
+  game.physics.enable(this.Kira, Phaser.Physics.ARCADE);
+  this.Kira.body.immovable = true;
+  this.Kira.body.collideWorldBounds = true;
+  this.Kira.body.allowGravity = false;
+
+
+
+  this.KiraTween = game.add.tween(this.Kira).to({
+    x: this.Kira.y + 2000
+  }, 2000, 'Linear', true, 2000, 2000, true);
 }
 
 var enemy1;
 
-
 Game.Level1 = function(game){};
-var music;
-var s;
-
-var map;
-var layer;
-
-var player;
-var controls = {};
-var playerSpeed = 200;
-var jumpTimer = 0;
-
-var shrooms;
-var score = 0;
-var scoreText;
-
-var button;
-
-var drag;
-
-var shootTime = 0;
-var bullet;
+var music,
+s,
+map,
+layer, 
+player,
+controls = {},
+playerSpeed = 650,
+jumpTimer = 0,
+shrooms,
+score = 0,
+scoreText,
+button,
+drag,
+shootTime = 0,
+bullet
 
 Game.Level1.prototype ={
     create:function () {
@@ -54,13 +65,13 @@ Game.Level1.prototype ={
       music.play();
       // Map
       this.physics.arcade.gravity.y = 1400;
-      map = this.add.tilemap('map', 64,64);
+      map = this.add.tilemap('map', 124, 124);
       map.addTilesetImage('tileset');
       layer = map.createLayer(0);
       layer.resizeWorld();
       map.setCollisionBetween(0,0);
-      map.setTileIndexCallback(6,this.resetPlayer,this);
-      map.setTileIndexCallback(64,this.getHigh,this);
+      map.setTileIndexCallback(6, this.resetPlayer, this);
+      map.setTileIndexCallback(64, this.getHigh, this);
       // score
       scoreText = this.add.text(0, 0, 'Shrooms: 0', { fontSize: '32px', fill: '#668221' });
       scoreText.fixedToCamera = true;
@@ -97,9 +108,11 @@ Game.Level1.prototype ={
 
 
              //constructor kyubeiya
-             enemy1 = new EnemeyKyubei(0, this, player.x+400, player.y-200);
-
-
+             enemy1 = new EnemeyKyubei(0, this, player.x + 200, player.y -200);
+             enemy2 = new EnemeyKyubei(0, this, player.x + 800, player.y - 200);
+             enemy3 = new EnemeyKyubei(0, this, player.x + 1400, player.y - 200);
+             // Kira Constructor
+             enemy4 = new EnemyKira(0, this, player.x + 300, player.y - -500);
              // Shoot
              bullets = this.add.group();
 
@@ -119,10 +132,12 @@ Game.Level1.prototype ={
         },
         update: function() {
           // background movement
-          background.tilePosition.y += 2;
+          background.tilePosition.x += 1;
+          background.tilePosition.y -= 1;
+     
          // Movement
         this.physics.arcade.collide(player, layer);
-        this.physics.arcade.collide(player, enemy1.Kyubei,this.resetPlayer);
+        this.physics.arcade.collide(player, enemy1.Kyubei, this.resetPlayer);
 
         player.body.velocity.x = 0;
 
@@ -163,7 +178,7 @@ Game.Level1.prototype ={
     },
       // player.reset
       resetPlayer:function(){
-        player.reset(100,560);
+        player.reset(100, 560);
 
       },
       // Shroom
